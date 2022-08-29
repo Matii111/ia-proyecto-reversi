@@ -1,19 +1,31 @@
 import reversiGUI	
+import functions
 
 tablero = []
 fichasNegras = []
 fichasBlancas= []
-reversiGUI.creaTab(tablero,8)
-reversiGUI.creaTab(fichasBlancas,8)
-reversiGUI.creaTab(fichasNegras,8)
 
 
-reversiGUI.insertar(tablero,0,4,5)
-reversiGUI.insertar(tablero,1,4,4)
 
-reversiGUI.insertar(tablero,0,5,4)
-reversiGUI.insertar(tablero,1,5,5)
+functions.creaTab(tablero,8)
 
-reversiGUI.prinTab(tablero)
-#print(tablero)
+#posiciones iniciales
+functions.insertar(tablero,1,4,5)
+functions.insertar(tablero,2,4,4)
+functions.insertar(tablero,1,5,4)
+functions.insertar(tablero,2,5,5)
 
+#primera jugada negras
+functions.insertar(tablero,2,3,4)
+
+functions.insertar(tablero,2,3,5)
+
+#primera jugada blancas
+functions.insertar(tablero,1,3,5)
+
+#functions.insertar(tablero,1,3,3)
+
+functions.comprobarMov(tablero,1)
+reversiGUI.prinTab(tablero,1)
+
+print(tablero)

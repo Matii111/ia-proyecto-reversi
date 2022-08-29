@@ -1,16 +1,23 @@
-def prinTab(tablero):					#La funcion 'prinTab' es para imprimir el tablero 
+import functions
+def prinTab(tablero, turno):			#La funcion 'prinTab' es para imprimir el tablero 
 	creaTabLetras(tablero)			    #en un formato comprensible para el usuario,
 	numTablero = 1						#dentro se llama a la funcion 'creaTabLetras'
-	contadorEnI = 0						#con para crear la primera linea de letras
-	for i in tablero:	
-		print(numTablero,end="  ")				
+	contadorEnI = 0						#con para crear la primera linea de letras,
+	for i in tablero:					#ademas separa los posibles movimientos dependiendo
+		print(numTablero,end="  ")	    #del color 0 para blancas 1 para negras
 		for j in i:			
 			if(j==1):		
 				print("▀",end="  ")
 			elif(j==2):
-				print("•",end="  ")
-			else:
+				print("♦",end="  ")		
+			elif(j==3 and turno == 2):	
 				print("X",end="  ")
+			elif(j==4 and turno == 1):	
+				print("X",end="  ")
+			elif(j==9):	
+				print(9,end="  ")
+			else:
+				print("○",end="  ")
 		print("",numTablero,end=" ")
 		print("\n")
 		contadorEnI+=1
@@ -31,27 +38,8 @@ def creaTabLetras(tablero):     	    #Esta funcion crea una linea de letras simi
 		letras+=1
 	print("\n")
 
-def creaTab(tablero,dimension):    	 	#Crea una lista de listas que funcionara como mapa
-	for i in range(dimension):			#de coordenadas, tanto para el tablero como para cada
-		tablero.append([])				#color
-		for j in range(dimension):		
-			tablero[i].append(0)
 
 
-def insertar(tablero,color,posicion_x,posicion_y): #Pide los valores del tablero, el color 
-												   #y la posicion de la pieza insertar
-	x=0
-	y=0
-	for i in tablero:				
-		for j in i:			
-			if((posicion_x-1)==y ):
-				if(color == 0):
-					i[(posicion_y-1)]=1		
-				else:
-					i[(posicion_y-1)]=2		
-		x+=1		
-		y+=1
-	return tablero
 
 
 	
@@ -76,8 +64,14 @@ def insertar(tablero,color,posicion_x,posicion_y): #Pide los valores del tablero
 	Simbologia:
 
 		~ ■ -> Blancas
-		~ • -> Negras
+		~ • -> Espacios vacios
 		~ X -> Movimientos disponibles
-
+		~ ♦ -> Negras
+		
+		~ 1 -> Blancas
+		~ 0 -> Espacios vacios
+		~ 3 -> Movimientos disponibles blancas
+		~ 4 -> Movimientos disponibles negras
+		~ 2 -> Negras
 """		
 
