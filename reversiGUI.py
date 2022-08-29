@@ -4,8 +4,13 @@ def prinTab(tablero):					#La funcion 'prinTab' es para imprimir el tablero
 	contadorEnI = 0						#con para crear la primera linea de letras
 	for i in tablero:	
 		print(numTablero,end="  ")				
-		for j in i:					
-			print("▀",end="  ")
+		for j in i:			
+			if(j==1):		
+				print("▀",end="  ")
+			elif(j==2):
+				print("•",end="  ")
+			else:
+				print("X",end="  ")
 		print("",numTablero,end=" ")
 		print("\n")
 		contadorEnI+=1
@@ -27,12 +32,26 @@ def creaTabLetras(tablero):     	    #Esta funcion crea una linea de letras simi
 	print("\n")
 
 def creaTab(tablero,dimension):    	 	#Crea una lista de listas que funcionara como mapa
-	for i in range(dimension):			#de coordenadas
-		tablero.append([])
+	for i in range(dimension):			#de coordenadas, tanto para el tablero como para cada
+		tablero.append([])				#color
 		for j in range(dimension):		
-			tablero[i].append(j)
+			tablero[i].append(0)
 
 
+def insertar(tablero,color,posicion_x,posicion_y): #Pide los valores del tablero, el color 
+												   #y la posicion de la pieza insertar
+	x=0
+	y=0
+	for i in tablero:				
+		for j in i:			
+			if((posicion_x-1)==y ):
+				if(color == 0):
+					i[(posicion_y-1)]=1		
+				else:
+					i[(posicion_y-1)]=2		
+		x+=1		
+		y+=1
+	return tablero
 
 
 	
