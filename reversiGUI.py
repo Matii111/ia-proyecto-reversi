@@ -10,9 +10,9 @@ def prinTab(tablero, turno):			#La funcion 'prinTab' es para imprimir el tablero
 				print("▀",end="  ")
 			elif(j==2):
 				print("♦",end="  ")		
-			elif(j==3 and turno == 2):	
+			elif(j==3 and turno == 1):	
 				print("X",end="  ")
-			elif(j==4 and turno == 1):	
+			elif(j==4 and turno == 2):	
 				print("X",end="  ")
 			elif(j==9):	
 				print(9,end="  ")
@@ -39,7 +39,31 @@ def creaTabLetras(tablero):     	    #Esta funcion crea una linea de letras simi
 	print("\n")
 
 
+def mostrarMovDisponibles(tablero,movDisponibles,color): #Funcion que muestra en pantalla los movimientos
+	if(color == 1):										 #disponibles y/o validos
+		movDisp = 3
+	else:
+		movDisp = 4
+	for i in movDisponibles:
+		posInicio = i[0]
+		posColumna= i[2]
+		tablero[posColumna][posInicio] = movDisp
 
+
+	#Movimientos iniciales posibles
+
+"""
+	tablero[2][3] = 4	#Blancas
+	tablero[3][2] = 4
+	tablero[5][4] = 4
+	tablero[4][5] = 4
+
+	tablero[4][2] = 3   #Negras
+	tablero[2][4] = 3
+	tablero[5][3] = 3
+	tablero[3][5] = 3
+	tablero[3][5] = 3
+"""
 
 
 	
