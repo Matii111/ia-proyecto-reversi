@@ -29,35 +29,34 @@ def comprobarMov(tablero,color):
 	if(color == 1):
 		piezaContraria=2
 		posOcupada    =3
-	else: 
+	elif(color ==2): 
 		piezaContraria=1
 		posOcupada    =4
 	for i in tablero:		
 		for j in i:				
 			if(j == piezaContraria       and    				  #comprueba si la posicion actual es una pieza contraria
-			   tablero[movVertical][movHorizont-1]     ==      0   				      #comprueba si la posicion anterior esta vacia						  
+			   tablero[movVertical][movHorizont-1]     ==      0 	and			      #comprueba si la posicion anterior esta vacia										
+				movHorizont > 0
 				):												  		
 				if(comprobarFinal(i,color,1) != False):		  
 					posInicio 	  = movHorizont-1
 					posTermino = comprobarFinal(i,color,1)	 														
 					posColumna 	    = movVertical
-					movDisponibles.append([posInicio,(posTermino*-1),posColumna])
-					print(movDisponibles)				
+					movDisponibles.append([posInicio,(posTermino*-1),posColumna])							
 					comprobarLinea(movDisponibles,tablero,color,1)
-
-					reversiGUI.mostrarMovDisponibles(tablero,movDisponibles,color)
+					reversiGUI.mostrarMovDisponibles(tablero,movDisponibles,color,1)
 
 			elif(j == piezaContraria     and
-				tablero[movVertical][movHorizont+1] == 0							  #comprueba si la posicion siguiente esta vacia
+				tablero[movVertical][movHorizont+1] == 0 				  #comprueba si la posicion siguiente esta vacia
 				):
+
 				if(comprobarFinal(i,color,-1) != False):		
 					posInicio = (comprobarFinal(i,color,-1)-1)
 					posTermino = movHorizont+1
 					posColumna = movVertical				
-					movDisponibles.append([posInicio,(posTermino),posColumna])			
-
+					movDisponibles.append([posInicio,(posTermino),posColumna])								
 					comprobarLinea(movDisponibles,tablero,color,-1)				
-					reversiGUI.mostrarMovDisponibles(tablero,movDisponibles,color)	
+					reversiGUI.mostrarMovDisponibles(tablero,movDisponibles,color,-1)	
 
 			movHorizont+=1				
 		movHorizont =0
@@ -81,9 +80,8 @@ def comprobarFinal(lista,color,sentido):		#recorre inversamente la lista hasta e
 			return False
 		cont-=1 * sentido
 
-def comprobarLinea(movDisponibles,tablero,color,sentido):	   # determina si una linea es apta para ser llenada
+def comprobarLinea(movDisponibles,tablero,color,sentido):	   # determina si una linea es apta para ser llenada	
 	for i in movDisponibles:
-		contMovDispo =0 
 		if(color ==1):
 			c=2
 		else:
@@ -91,17 +89,16 @@ def comprobarLinea(movDisponibles,tablero,color,sentido):	   # determina si una 
 		posInicio = i[0]
 		posTermino= i[1]
 		posColumna= i[2]
-		contPosicion = posInicio+2
+		contPosicion = posInicio+2	
 								
 		while(contPosicion<(posTermino)):               #comprueba si se llego desde la pos  inicial a final
-			if(tablero[posColumna][contPosicion] == c):				
+			if(tablero[posColumna][contPosicion] == c):								
 				contPosicion +=1
-				continue
+				if(contPosicion != posTermino):
+					movDisponibles.remove(i)		     					
 			else:
 				break		
-		if(contPosicion != posTermino):
-			movDisponibles.remove(i)		     
-		contMovDispo+=1										
+			contPosicion +=1		
 	return movDisponibles
 			
 

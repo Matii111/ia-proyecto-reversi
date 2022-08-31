@@ -16,10 +16,12 @@ functions.insertar(tablero,2,4,4)
 functions.insertar(tablero,1,5,4)
 functions.insertar(tablero,2,5,5)
 ##################################
-#functionsinsertar(tablero,c,x,y)
-functions.insertar(tablero,1,6,3)
-functions.insertar(tablero,2,5,3)
 
+
+
+functions.insertar(tablero,1,8,4)
+#functions.insertar(tablero,1,8,6)
+#functions.insertar(tablero,1,8,3)
 
 
 
