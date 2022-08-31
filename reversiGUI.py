@@ -38,7 +38,6 @@ def creaTabLetras(tablero):     	    #Esta funcion crea una linea de letras simi
 		letras+=1
 	print("\n")
 
-
 def mostrarMovDisponibles(tablero,movDisponibles,color): #Funcion que muestra en pantalla los movimientos
 	if(color == 1):										 #disponibles y/o validos
 		movDisp = 3
@@ -48,7 +47,6 @@ def mostrarMovDisponibles(tablero,movDisponibles,color): #Funcion que muestra en
 		posInicio = i[0]
 		posColumna= i[2]
 		tablero[posColumna][posInicio] = movDisp
-
 
 	#Movimientos iniciales posibles
 
@@ -64,7 +62,6 @@ def mostrarMovDisponibles(tablero,movDisponibles,color): #Funcion que muestra en
 	tablero[3][5] = 3
 	tablero[3][5] = 3
 """
-
 
 	
 """	Falta aniadir:
