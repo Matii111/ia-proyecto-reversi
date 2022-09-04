@@ -30,10 +30,8 @@ def reversi(opcion):
 	print("╚═══════════════════════════════════════╝")			
 
 def prinTab(tablero, turno, dificultad):
-
 	fichas_blancas = contadorFichas(tablero,1)
-	fichas_negras = contadorFichas(tablero,2)	
-	print(tablero)
+	fichas_negras = contadorFichas(tablero,2)		
 	print("╔═══════════════════════════════════════╗")
 	print("║                                    _  ║\
 		 \n║                                   (_) ║\
@@ -93,7 +91,6 @@ def prinTab(tablero, turno, dificultad):
 	else:
 		print("          ║")		
 	print("╚═══════════════════════════════════════╝")
-	print("\n")
 
 
 def creaTabLetras(tablero):     	    #Esta funcion crea una linea de letras similiar a
@@ -133,30 +130,35 @@ def contadorFichas(tablero,color):
 				cont +=1
 	return cont
 
+def movTabla(tablero,turno):	
+	pos_x = 0
+	pos_y = 0
+	movimientos=[]
+	if(turno==1):
+		turno = 3
+	else:
+		turno = 4
+	for i in tablero:
+		for j in i:		
+			if(j==turno):
+				movimientos.append([chr(65+pos_x),pos_y+1])
+			pos_x+=1	
+		pos_x = 0 
+		pos_y +=1	
+	print("╔",end="══════════════════════════╗\n")	
+	print("║ Movimientos disponibles: ║")
+	print("╠",end="══════════════════════════╩════════════╗\n")
+	for i in movimientos:
+		print(" ({},{})".format(i[0],i[1]))
+	print("╚",end="═══════════════════════════════════════╝\n")
 
 
-
-
-	#Movimientos iniciales posibles
-
-"""
-	tablero[2][3] = 4	#Blancas
-	tablero[3][2] = 4
-	tablero[5][4] = 4
-	tablero[4][5] = 4
-
-	tablero[4][2] = 3   #Negras
-	tablero[2][4] = 3
-	tablero[5][3] = 3
-	tablero[3][5] = 3
-	tablero[3][5] = 3
-"""
 
 	
 """	Falta aniadir:
-	1.- Menu de inicio : 
-		~	Que tenga la dificultad	
-		~	Tablero de 6x6 u 8x8
+	1.- Menu de inicio :                
+		~	Que tenga la dificultad		
+		~	Tablero de 6x6 u 8x8 		
 		~	Comando para entrar y salir
 
 	2.- Movimientos de las piezas:
