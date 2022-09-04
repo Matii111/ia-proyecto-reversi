@@ -1,10 +1,63 @@
 import functions
-def prinTab(tablero, turno):			#La funcion 'prinTab' es para imprimir el tablero 
-	creaTabLetras(tablero)			    #en un formato comprensible para el usuario,
-	numTablero = 1						#dentro se llama a la funcion 'creaTabLetras'
-	contadorEnI = 0						#con para crear la primera linea de letras,
-	for i in tablero:					#ademas separa los posibles movimientos dependiendo
-		print(numTablero,end="  ")	    #del color 0 para blancas 1 para negras
+import os
+def reversi(opcion):	
+	print("╔═══════════════════════════════════════╗")
+	print("║                                    _  ║\
+		 \n║                                   (_) ║\
+		 \n║  _ __  ___ __   __ ___  _ __  ___  _  ║\
+		 \n║ | '__|/ _ \\\ \ / // _ \| '__|/ __|| | ║\
+		 \n║ | |  |  __/ \ V /|  __/| |   \__ \| | ║\
+		 \n║ |_|   \___|  \_/  \___||_|   |___/|_| ║")
+	print("║                                       ║")
+	print("║                                       ║")
+	print("╚═══════════════════════════════════════╝")			
+	print("╔",end="══════════════╦═════════════╦══════════╗\n")
+	print("║Fichas blancas║Fichas negras║Dificultad║")		
+	print("╠",end="══════════════╬═════════════╬══════════╣\n")
+	print("  0              0                -   ")		
+	print("╚",end="══════════════╩═════════════╩══════════╝\n")
+	print("╔═══════════════════════════════════════╗")			
+	for i in range(2):
+		
+		if(i ==1):
+			print("║Ingrese la dificultad del juego:       ║\n",end="")
+			print("║FACIL    ",end="                              ║\n")
+			print("║MEDIO    ",end="                              ║\n")
+			print("║DIFICIL    ",end="                            ║\n")
+			print("║Ingrese el tamano del tablero  :       ║\n",end="")
+			print("║8x8    ",end="                                ║\n")
+			print("║6x6    ",end="                                ║\n")
+	print("╚═══════════════════════════════════════╝")			
+
+def prinTab(tablero, turno, dificultad):
+
+	fichas_blancas = contadorFichas(tablero,1)
+	fichas_negras = contadorFichas(tablero,2)	
+	print(tablero)
+	print("╔═══════════════════════════════════════╗")
+	print("║                                    _  ║\
+		 \n║                                   (_) ║\
+		 \n║  _ __  ___ __   __ ___  _ __  ___  _  ║\
+		 \n║ | '__|/ _ \\\ \ / // _ \| '__|/ __|| | ║\
+		 \n║ | |  |  __/ \ V /|  __/| |   \__ \| | ║\
+		 \n║ |_|   \___|  \_/  \___||_|   |___/|_| ║")
+	print("║                                       ║")
+	print("║                                       ║")
+	print("╚═══════════════════════════════════════╝")	
+	print("╔",end="══════════════╦═════════════╦══════════╗\n")
+	print("║Fichas blancas║Fichas negras║Dificultad║")		
+	print("╠",end="══════════════╬═════════════╬══════════╣\n")
+	print(" ",fichas_blancas,"            ",fichas_negras,"           ",dificultad,"   ")		
+	print("╚",end="══════════════╩═════════════╩══════════╝\n")
+	print("╔═══════════════════════════════════════╗")		
+	creaTabLetras(tablero)			    
+	numTablero = 1						
+	contadorEnI = 0						
+	for i in tablero:					
+		if(len(tablero)==8):			
+			print("║    ",numTablero,end="  ")	    
+		else:
+			print("║       ",numTablero,end="  ")	    
 		for j in i:			
 			if(j==1):		
 				print("▀",end="  ")
@@ -18,28 +71,48 @@ def prinTab(tablero, turno):			#La funcion 'prinTab' es para imprimir el tablero
 				print(9,end="  ")
 			else:
 				print("○",end="  ")
-		print("",numTablero,end=" ")
+		if(len(tablero)==8):
+			print(numTablero,"     ║",end=" ")
+		else: 
+			print(numTablero,"        ║",end=" ")
 		print("\n")
 		contadorEnI+=1
 		numTablero+=1		
 	letras = 65
-	print("  ",end=" ")
-	for i in range(len(tablero)):		
-		print(chr(letras),end="  ")			
+	
+	for i in range(len(tablero)):	
+		if(i == 0 and len(tablero)==8):
+			print("║        ",end="")
+		if(i == 0 and len(tablero)==6):
+			print("║           ",end="")
+		print(chr(letras),end="  ")	
+		
 		letras+=1
+	if(len(tablero)==8):
+		print("       ║")		
+	else:
+		print("          ║")		
+	print("╚═══════════════════════════════════════╝")
 	print("\n")
 
 
 def creaTabLetras(tablero):     	    #Esta funcion crea una linea de letras similiar a
 	letras = 65							#la del ajedrez, como se menciona anteriormente
-	print("  ",end=" ")					#la funcion 'prinTab' y esta solo cumplen el objetivo
+	if(len(tablero)==8):
+		print("║       ",end=" ")					#la funcion 'prinTab' y esta solo cumplen el objetivo
+	else:
+		print("║          ",end=" ")
 	for i in range(len(tablero)):		#de hacer mas intuitivo el juego
 		print(chr(letras),end="  ")			
 		letras+=1
-	print("\n")
+	if(len(tablero)==8):
+		print("       ║\n")
+	else:
+		print("          ║\n")
+	
 
 def mostrarMovDisponibles(tablero,movDisponibles,color,sentido): #Funcion que muestra en pantalla los movimientos
-	if(color == 1):										         #disponibles y/o validos
+	if(color == 1):	   	  								         #disponibles y/o validos
 		movDisp = 3
 	else:
 		movDisp = 4
@@ -47,12 +120,22 @@ def mostrarMovDisponibles(tablero,movDisponibles,color,sentido): #Funcion que mu
 		posInicio = i[0]
 		posTermino= i[1]
 		posColumna= i[2]
-		if(sentido==1 and tablero[posColumna][posInicio] == 0):
-			tablero[posColumna][posInicio] = movDisp
-		elif(sentido==-1 and 
-			tablero[posColumna][posTermino] == 0 ):
-			tablero[posColumna][posTermino] = 9
-			print(posColumna,posTermino)
+		if(sentido==1):
+			tablero[posColumna][posInicio] = movDisp	
+		elif(sentido==-1):
+			tablero[posColumna][posTermino] = movDisp
+		
+def contadorFichas(tablero,color):
+	cont = 0
+	for i in tablero:
+		for j in i:
+			if (j == color):
+				cont +=1
+	return cont
+
+
+
+
 
 	#Movimientos iniciales posibles
 

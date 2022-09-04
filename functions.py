@@ -35,8 +35,8 @@ def comprobarMov(tablero,color):
 	for i in tablero:		
 		for j in i:				
 			if(j == piezaContraria       and    				  #comprueba si la posicion actual es una pieza contraria
-			   tablero[movVertical][movHorizont-1]     ==      0 	and			      #comprueba si la posicion anterior esta vacia										
-				movHorizont > 0
+			   tablero[movVertical][movHorizont-1]==0  and			      #comprueba si la posicion anterior esta vacia														
+			   tablero[movVertical][movHorizont+1]== color
 				):												  		
 				if(comprobarFinal(i,color,1) != False):		  
 					posInicio 	  = movHorizont-1
@@ -47,7 +47,8 @@ def comprobarMov(tablero,color):
 					reversiGUI.mostrarMovDisponibles(tablero,movDisponibles,color,1)
 
 			elif(j == piezaContraria     and
-				tablero[movVertical][movHorizont+1] == 0 				  #comprueba si la posicion siguiente esta vacia
+				tablero[movVertical][movHorizont+1] == 0 	and			  #comprueba si la posicion siguiente esta vacia
+				tablero[movVertical][movHorizont-1]== color
 				):
 
 				if(comprobarFinal(i,color,-1) != False):		
@@ -69,12 +70,11 @@ def comprobarFinal(lista,color,sentido):		#recorre inversamente la lista hasta e
 	else:
 		c= 1
 	if(sentido==-1):
-		cont= 0
+		cont= 0		
 	elif(sentido==1):
-		cont = -1
-		sentido = 1
+		cont = -1		
 	for i in lista:				
-		if(lista[cont] == color ):
+		if(lista[cont] == color ):		
 			return cont
 		elif(lista[cont] == c):
 			return False
@@ -102,8 +102,6 @@ def comprobarLinea(movDisponibles,tablero,color,sentido):	   # determina si una 
 	return movDisponibles
 			
 
+
 	
-
-
-
 
