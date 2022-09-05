@@ -2,30 +2,30 @@ import reversiGUI
 import functions
 import os
 
-tablero = []
+tablero      = []
 fichasNegras = []
 fichasBlancas= []
 dificultades = ["FACIL","MEDIO","DIFICIL"]
-tamanios = ["6x6","8x8"]
-comenzar = "comenzar"
-mov = ""
+tamanios     = ["6x6","8x8"]
+comenzar     = "comenzar"
+mov          = ""
+comprobadorMov = 0
 
 #ejecucion de tablero inicial
 reversiGUI.reversi(0)
 
 dificultad = input("Dificultad: ")
 dificultad = dificultad.upper()
-dificultad = "FACIL"
+#dificultad = "FACIL"
 
 #comprueba que se ingrese una dificultad disponible
 
 while(dificultad not in dificultades):
 	dificultad = input("Dificultad: ")
 
-
 tamanio = input("Tamano: ")
 tamanio = tamanio.lower()
-tamanio = "8x8"
+#tamanio = "8x8"
 
 #comprueba que se ingrese un tamanio disponible
 
@@ -59,6 +59,7 @@ reversiGUI.prinTab(tablero,2,dificultad)
 comenzar = input("Escriba comenzar para mostar posiciones iniciales: \n")
 comenzar = comenzar.lower()
 #comenzar = "comenzar"
+
 #al ingresar comenzar , comienza el juego y el primer movimiento lo tienen las negras, 
 #mostrando sus posibles movimientos tanto en pantalla como en una lista de coordenadas
 
@@ -70,12 +71,31 @@ while (comenzar != "comenzar"):
 
 while(mov != "0"):
 	os.system ("clear")
-	a = functions.comprobarMov(tablero,2)
-	reversiGUI.mostrarMovDisponibles(tablero,a,2,0)	
-	reversiGUI.prinTab(tablero,2,dificultad)
-	reversiGUI.movTabla(tablero,2)
+	if(comprobadorMov == 0):
+		turno = 2
+		comprobadorMov +=1
+	else:
+		comprobadorMov -=1
+		turno = 1
+
+	a = functions.comprobarMov(tablero,turno)
+	reversiGUI.mostrarMovDisponibles(tablero,a,turno,0)	
+	reversiGUI.prinTab(tablero,turno,dificultad)
+	reversiGUI.movTabla(tablero,turno)
+
+#comprobador de movimientos, tras cada movimiento ingresado se comprueba si es valido
+#y en tal caso se pasa el turno al otro jugador
+
 	mov = input("Ingrese un movimiento: \n")
+	verificar = functions.verificarMov(mov,tamanio,a)
+	while(verificar != True):
+		os.system ("clear")			
+		reversiGUI.prinTab(tablero,turno,dificultad)
+		reversiGUI.movTabla(tablero,turno)
+		mov = input("Movimiento no valido, ingrese uno correcto: \n")
+		verificar = functions.verificarMov(mov,tamanio,a)
 
+	posicion_x = ord(mov[0].upper())-64
+	posicion_y = int(mov[1])
 
-## tablero[x][y] ->> 
-
+	functions.insertar(tablero,turno,posicion_x,posicion_y)

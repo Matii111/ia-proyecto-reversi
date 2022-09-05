@@ -1,5 +1,7 @@
 import functions
 import os
+
+#funcion reversi es para complementar la GUI inicial
 def reversi(opcion):	
 	print("╔═══════════════════════════════════════╗")
 	print("║                                    _  ║\
@@ -17,8 +19,7 @@ def reversi(opcion):
 	print("  0              0                -   ")		
 	print("╚",end="══════════════╩═════════════╩══════════╝\n")
 	print("╔═══════════════════════════════════════╗")			
-	for i in range(2):
-		
+	for i in range(2):		
 		if(i ==1):
 			print("║Ingrese la dificultad del juego:       ║\n",end="")
 			print("║FACIL    ",end="                              ║\n")
@@ -29,6 +30,8 @@ def reversi(opcion):
 			print("║6x6    ",end="                                ║\n")
 	print("╚═══════════════════════════════════════╝")			
 
+
+#prinTab es quien mostrara el tablero a lo largo del juego
 def prinTab(tablero, turno, dificultad):
 	fichas_blancas = contadorFichas(tablero,1)
 	fichas_negras = contadorFichas(tablero,2)		
@@ -92,14 +95,16 @@ def prinTab(tablero, turno, dificultad):
 		print("          ║")		
 	print("╚═══════════════════════════════════════╝")
 
-
-def creaTabLetras(tablero):     	    #Esta funcion crea una linea de letras similiar a
-	letras = 65							#la del ajedrez, como se menciona anteriormente
+#creaTabLetras complementa el disenio del tablero mostrando las coordenadas
+#horizontales con letras desde la 'A' a la 'H' o 'F' dependiendo del 
+#tamanio
+def creaTabLetras(tablero):     	    
+	letras = 65							
 	if(len(tablero)==8):
-		print("║       ",end=" ")					#la funcion 'prinTab' y esta solo cumplen el objetivo
+		print("║       ",end=" ")					
 	else:
 		print("║          ",end=" ")
-	for i in range(len(tablero)):		#de hacer mas intuitivo el juego
+	for i in range(len(tablero)):		
 		print(chr(letras),end="  ")			
 		letras+=1
 	if(len(tablero)==8):
@@ -107,9 +112,10 @@ def creaTabLetras(tablero):     	    #Esta funcion crea una linea de letras simi
 	else:
 		print("          ║\n")
 	
-
-def mostrarMovDisponibles(tablero,movDisponibles,color,sentido): #Funcion que muestra en pantalla los movimientos
-	if(color == 1):	   	  								         #disponibles y/o validos
+#mostrarMovDisponibles es fundamental pues rellena la GUI con los 
+#posibles movimientos para cada jugador
+def mostrarMovDisponibles(tablero,movDisponibles,color,sentido): 
+	if(color == 1):	   	  								         
 		movDisp = 3
 	else:
 		movDisp = 4
@@ -121,7 +127,8 @@ def mostrarMovDisponibles(tablero,movDisponibles,color,sentido): #Funcion que mu
 			tablero[posColumna][posInicio] = movDisp	
 		elif(sentido==-1):
 			tablero[posColumna][posTermino] = movDisp
-		
+
+#contadorFichas muestra dentro de la GUI la cantidad de fichas que posee cada jugador		
 def contadorFichas(tablero,color):
 	cont = 0
 	for i in tablero:
@@ -130,6 +137,7 @@ def contadorFichas(tablero,color):
 				cont +=1
 	return cont
 
+#movTabla muestra en la GUI los movimientos posibles para cada jugador
 def movTabla(tablero,turno):	
 	pos_x = 0
 	pos_y = 0
@@ -154,36 +162,24 @@ def movTabla(tablero,turno):
 
 
 
+
+
 	
-"""	Falta aniadir:
-	1.- Menu de inicio :                
-		~	Que tenga la dificultad		
-		~	Tablero de 6x6 u 8x8 		
-		~	Comando para entrar y salir
+"""	Simbologia:
 
-	2.- Movimientos de las piezas:
+		- Para la GUI:
+			~ ■ -> Blancas
+			~ • -> Espacios vacios
+			~ X -> Movimientos disponibles
+			~ ♦ -> Negras
 
-		~ 	Funcion de reemplazar piezas
+		- Para las listas:
+			~ 1 -> Blancas
+			~ 0 -> Espacios vacios
+			~ 3 -> Movimientos disponibles blancas
+			~ 4 -> Movimientos disponibles negras
+			~ 2 -> Negras
+	
 
-		~	Funcion que recorra horizontal, vertical y diagonalmente si es que hay algun 
-			movimiento posible
-		
-		~	Funcion de contador de piezas, se parte con dos piezas cada uno y se debe 
-			mostrar el conteo de las piezas de cada color
-		
-		~   Funcion que muestre en pantalla todos los movimientos posibles	 	
-
-	Simbologia:
-
-		~ ■ -> Blancas
-		~ • -> Espacios vacios
-		~ X -> Movimientos disponibles
-		~ ♦ -> Negras
-		
-		~ 1 -> Blancas
-		~ 0 -> Espacios vacios
-		~ 3 -> Movimientos disponibles blancas
-		~ 4 -> Movimientos disponibles negras
-		~ 2 -> Negras
 """		
 

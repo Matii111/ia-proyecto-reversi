@@ -1,8 +1,11 @@
 import reversiGUI
-def insertar(tablero,color,posicion_y,posicion_x): #Pide los valores del tablero, el color 												   
-	x=0											   #y la posicion de la pieza insertar,
-	y=0											   #para las blancas color = 1 para las 
-	for i in tablero:							   #negras cualquier otro 						
+
+#insertar rellena la posicion indicada con el color correspondiente, una posicion
+#rellena con un 1 indica una ficha blanca, el 2 es para las fichas negras
+def insertar(tablero,color,posicion_y,posicion_x): 											   
+	x=0											   
+	y=0											   
+	for i in tablero:							   					
 		for j in i:						
 			if((posicion_x-1)==y ):
 				if(color == 1):
@@ -12,13 +15,19 @@ def insertar(tablero,color,posicion_y,posicion_x): #Pide los valores del tablero
 		x+=1		
 		y+=1
 	
-
-def creaTab(tablero,dimension):    	 	#Crea una lista de listas que funcionara como mapa
-	for i in range(dimension):			#de coordenadas, tanto para el tablero como para cada
-		tablero.append([])				#color
+#creaTab es la lista de listas que dentro del codigo representa el tablero, los 
+#espacios vacios son representados con un 0
+def creaTab(tablero,dimension):    	 	
+	for i in range(dimension):			
+		tablero.append([])				
 		for j in range(dimension):		
 			tablero[i].append(0)			
 	
+#comprobarMov es un conjunto de acciones que recorren la lista desde el una ficha con
+#el fin de comprobar todos los movimientos   posibles  retornando una lista de listas 
+#de ellos, estas listas poseen 3 valores siendo el primero  y  el segundo la posicion
+#de inicio y termino del movimiento, respectivamente y el tercer valor es la fila en 
+#la que se realiza el movimiento
 def comprobarMov(tablero,color):
 	movVertical=0
 	movHorizont=0
@@ -65,9 +74,11 @@ def comprobarMov(tablero,color):
 		movVertical+=1
 	return movDisponibles
 
-def comprobarFinal(lista,color,sentido):		#recorre inversamente la lista hasta encontrar una 
-	if(color == 1):						#pieza del color contrario y retorna su posicion o
-		colorContrario = 2 								#un 'false' si no la hay
+#comprobarFinal recorre inversamente una fila especifica de   la   lista,   ayuda   a         
+#comprobarMov a cumplir con su tarea senialando el punto de termino de un  movimiento
+def comprobarFinal(lista,color,sentido):		
+	if(color == 1):						
+		colorContrario = 2 				
 	else:
 		colorContrario= 1
 	if(sentido==-1):
@@ -81,6 +92,8 @@ def comprobarFinal(lista,color,sentido):		#recorre inversamente la lista hasta e
 			return False
 		contador-=1 * sentido
 
+#comprobarLinea determina si es que es valido  rellenar  un movimiento desde el punto
+#de inicio hasta el punto final, tambien ayuda a comprobarMov a cumplir  su  objetivo
 def comprobarLinea(movDisponibles,tablero,color,sentido):	   # determina si una linea es apta para ser llenada	
 	for i in movDisponibles:
 		if(color ==1):
@@ -92,7 +105,7 @@ def comprobarLinea(movDisponibles,tablero,color,sentido):	   # determina si una 
 		posColumna= i[2]
 		contPosicion = posInicio+2	
 								
-		while(contPosicion<(posTermino)):               #comprueba si se llego desde la pos  inicial a final
+		while(contPosicion<(posTermino)):               
 			if(tablero[posColumna][contPosicion] == c):								
 				contPosicion +=1
 				if(contPosicion != posTermino):
@@ -102,6 +115,31 @@ def comprobarLinea(movDisponibles,tablero,color,sentido):	   # determina si una 
 			contPosicion +=1		
 	return movDisponibles
 			
+#verificarMov es para comprobar el movimiento ingresado por un jugador retorna 'true'
+#o 'false' dependiendo si el input aplica para ser un movimiento o no
+def verificarMov(mov,tamanio,movDisponibles):
+	listaPos = ["A","B","C","D","E","F","G","H"]
+	contador =0	
+	if(len(mov)==2):
+		for i in mov:
+			contador +=1		
+			if(contador == 1):
+				i = i.upper()			
+				if(i in listaPos):
+					posicion_x = ord(i)-65				
+			if(contador == 2):			
+				posicion_y = int(i)-1
+		if(posicion_y>=0 and posicion_y<=tamanio):		
+			for i in movDisponibles:			
+				return posicion_x == i[0] and posicion_y ==i[2]
+	else:
+		return False
+
+
+
+
+
+	
 
 
 	
